@@ -1,0 +1,73 @@
+{%extends "base.html"%}
+{%block conteudo%}
+<div class="centered fundo" style="width:80%;">
+        <div class="container p-0 rounded-0">
+<section class="page-section clearfix">
+                <div class="well">
+            <div class="intro">
+                <div class="intro-text left-0 text-centerfaded p-5 rounded bg-faded text-center" style="width: 100%;padding: 10%;margin: 0px 0px 0px;">
+                    <div class="d-xl-flex justify-content-xl-start"><img class="rounded-circle" src="{{'static/imagens_perfil/'+post.autor.foto_perfil}}" style="width: 8%;">
+                        <p class="d-inline d-xl-flex justify-content-xl-center align-items-xl-center" style="margin: 0px 2% 0px;font-size: 120%;"><a href="#">{{post.autor.nome}}</a></p>
+                        <br>
+                    </div>
+
+                        <div class="container" style="text-align: center;">
+                        <h5 style="text-align:center;font-size: 230%;font-style:italic;color:#f13340; ">{{post.titulo}}</h5>
+                    </div>
+                    <p class="text-center">{{post.conteudo}}</p>
+                    <br>
+                    {%if post.imagem_postagem%}
+                    <img src="{{'static/imagens_postagem/'+ post.imagem_postagem}}" style="width:50%;margin: 0px 0px 5%;">
+                    {%endif%}
+                    
+                </div>
+            </div>
+<p>Por {{post.autor.nome}} em {{post.data_postada.strftime('%d-%m-%Y')}}</p>
+<details>
+<summary>Editar Postagem</summary>
+<form method="POST" action="" enctype="multipart/form-data">
+    <div style="width:80%;">
+{%if current_user.nome == post.autor.nome or current_user.administrador == true%}
+
+        <fieldset>
+        {{form.hidden_tag()}}
+        <dir>
+                {{form.titulo.label}}
+                {%if form.titulo.errors%}
+                    {{form.titulo }}
+                    {%for errors in form.titulo.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.titulo (type="text", id="defaultSubscriptionFormPassword", class="form-control mb-4", placeholder="Título")}}
+                {%endif%}
+            </dir>
+            <dir>
+                    {{form.conteudo.label}}
+                    {%if form.conteudo.errors%}
+                    {{form.conteudo (type="text",class="form-control", id="exampleFormControlTextarea5",  placeholder="Conteudo",style="padding:0px;")}}
+                    {%for errors in form.conteudo.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.conteudo (type="text",class="form-control", id="exampleFormControlTextarea5",  placeholder="Conteudo",style="padding:0px;")}}
+                {%endif%}
+                <br>
+                <br>
+                {{form.mandar_edicao_postagem(class="btn btn-info btn-block",id="button2",style="padding:0px;")}}
+                <br>
+                <br>
+            </dir>
+</fieldset>
+</div>
+
+{%endif%}
+</form>
+
+</details>
+</div>
+</div>
+</div>
+{%endblock%}

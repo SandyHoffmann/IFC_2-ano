@@ -1,0 +1,80 @@
+{%extends "base.html"%}
+{%block conteudo%}
+<div class="form">
+<section class="form-gradient" style="display: flex;flex-direction: row;justify-content: center; align-items: center">
+        <div class="card" style="width:50%;">
+        <div class="header pt-3" style="
+                background-color:#666;">
+            <div class="row d-flex justify-content-center">
+                <h3 class="white-text mb-3 pt-3 ">Login</h3>
+            </div>
+        </div>
+    <form method="POST" action="" class="form-padrao">
+            <div class="form-group row" style="display: flex;flex-direction: row;justify-content: center; align-items: center;">
+        {{form.hidden_tag()}}
+        <fieldset class="formularioemsi">
+            <dir>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                        <li style="color: aliceblue">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
+            <div class="col-sm-10">
+                {{form.nome.label(class="form-field")}}
+                {%if form.nome.errors%}
+                    {{form.nome}}
+                    {%for errors in form.nome.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.nome (class="form",placeholder="Nome do Usuário" ,size="30")}}
+                {%endif%}
+                </div>
+            </dir>
+            <dir>
+            <div class="col-sm-10">
+                {{form.senha.label}}
+                {%if form.senha.errors%}
+                    {{form.senha}}
+                    {%for errors in form.senha.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.senha (class="form",placeholder="Senha",size="30")}}
+                {%endif%}
+                </div>
+        <div class="col-sm-10">
+        <div class="form-group row" style="position:relative;">
+        <div>
+            {{form.lembrar}}
+            {{form.lembrar.label(style="width: 400px;align-items: center;padding: 20px;display: inline;")}}
+            <br>
+            <br>
+            {{form.mandar_login (class="btn btn-primary",id="button1")}}
+            
+        <small style="text-align: center;">
+            Ainda não se registrou? <a href="{{url_for('registro')}}">Clique para logar</a>
+            <br>
+            Esqueceu a senha? <a href="{{url_for('requisitar_nova_senha')}}">Clique para requisitar outra</a>
+    </small>
+        </dir>
+        <br>
+
+        </div>
+
+    </div>
+    </div>
+</fieldset>
+
+    </form>
+</div>
+</div>
+</div>
+</section>
+{%endblock conteudo%}

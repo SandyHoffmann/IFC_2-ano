@@ -1,0 +1,213 @@
+{%extends "base.html"%}
+{%block conteudo%}
+<div class="centered fundo" style="width:80%;">
+<div class="container p-0 rounded-0">
+<div class="media mt-4 px-1 p-4 d-xl-flex" style="font-size: 120%;">
+    <div class="container p-0 justify-content-xl-right rounded-0" style="border-radius:0%;">
+        <img class="card-img-100 d-flex z-depth-1 mr-3 rounded centered" src="{{foto_perfil}}"
+          alt="perfil" width="30%; style="margin:0px;">
+          <br>
+        <div class="media-body" >
+            {%if usuario.administrador == true%}
+            <h3 class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">
+                Administrador</h3>
+          <p class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">
+              {%endif%}
+
+                <h5 class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">Nome</h5>
+          <p class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">
+            {{usuario.nome}}
+          </p>
+          <h5 class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">Email: </h5>
+          <p class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">
+               {{usuario.email}}
+          </p>
+          <h5 class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">Número de Postagens feitas pelo Usuário: </h5>
+          <p class="text-center d-xl-flex justify-content-xl-center align-items-xl-center">
+               {{len_post}}
+          </p>
+      </div>
+      <div class="container centered">
+    </div>
+    </div>
+    </div>
+    {%if current_user.nome == usuario.nome or current_user.administrador == true%}
+    <details>
+    <summary>Editar Conta</summary>
+    <form method="POST" action="" enctype="multipart/form-data">
+        <div class="container p-2 "style="width:80%;background-color:rgb(51, 51, 51,0.2);border-radius:0px; ">
+                {{form.hidden_tag()}}
+                <dir>
+                        {{form.nome.label}}
+                        {%if form.nome.errors%}
+                            {{form.nome }}
+                            {%for errors in form.nome.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        {{form.nome (type="text", id="defaultSubscriptionFormPassword", class="form-control mb-4", placeholder="Nome")}}
+                        {%endif%}
+                    </dir>
+                    <dir>
+                        <div class="form-group green-border-focus">
+                        {{form.email.label}}
+                        {%if form.email.errors%}
+                            {{form.email }}
+                            {%for errors in form.email.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        {{form.email (type="text",class="form-control", id="exampleFormControlTextarea5",  placeholder="Email")}}
+                        {%endif%}
+                        <br>
+                    </div>
+                
+                        <div class="input-group">
+                            <div class="custom-file">
+                                {{form.foto_nova(type="file",class="custom-file-input",id="inputGroupFile01") }}
+                                {% if form.foto_nova.errors %}
+                                    {%for errors in form.foto_nova.errors%}
+                                        <br>
+                                        <span>{{errors}}</span>
+                                        <br>
+                                    {%endfor%}
+                                {%endif%}
+                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              <script>
+                                    $('#inputGroupFile01').on('change',function(){
+                                        var fileName = $(this).val();
+                                        $(this).next('.custom-file-label').html(fileName);
+                                        fileName = fileName.replace("C:\\fakepath\\", "");
+        
+                                        if (fileName != undefined || fileName != "") {
+                                            $(this).next(".custom-file-label").attr('data-content', fileName);
+                                            $(this).next(".custom-file-label").text(fileName);
+                                        }
+                                    })
+                                </script>
+                            </div>
+                           <br>
+                           <br>
+                           <br>
+                        {{form.mandar_editacao_perfil(class="btn btn-info btn-block",id="button2")}}
+                        <br>
+                        <br>
+                    </dir>
+                </fieldset>
+            </div>
+    </form>
+    </details>
+    {%endif%}
+    <section style="background-color:rgb(29, 31, 32);">
+        <br>
+        <br>
+            <div class="card-header border-0 font-weight-bold d-flex justify-content-between" style="background-color: #f13340;margin:0px;width:100%;">
+                    <p class="mr-4 mb-0 centered">Postagens feitas pelo Usuário</p>
+            </div>
+                    {%for post in posts|reverse%}
+                    <dir style="padding: 0px;">
+                        <h1 class="text-center text-white d-none d-lg-block site-heading"></h1>
+                        <section class="page-section clearfix">
+                            <div class="container" style="width: 100%;">
+                                    <div class="well">
+                                <div class="intro">
+                                    <div class="intro-text left-0 text-centerfaded p-5 rounded bg-faded text-center" style="width: 100%;padding: 10%;margin: 0px 0px 0px;">
+                                        <div class="d-xl-flex justify-content-xl-start"><img class="rounded-circle" src="{{'static/imagens_perfil/'+post.autor.foto_perfil}}" style="width: 8%;">
+                                            <p class="d-inline d-xl-flex justify-content-xl-center align-items-xl-center" style="margin: 0px 2% 0px;font-size: 120%;"><a href="#">{{post.autor.nome}}</a></p>
+                                            <br>
+                                        </div>
+                    
+                                            <div class="container" style="text-align: center;">
+                                            <p style="text-align:center;font-size: 230%;"><a href="post_esp+{{post.id}}">{{post.titulo}}</a></p>
+                                        </div>
+                                        <h2 class="section-heading mb-4"></h2>
+                                        <p class="text-center">{{post.conteudo}}</p>
+                                        <br>
+                                        {%if post.imagem_postagem%}
+                                        <img src="{{'static/imagens_postagem/'+ post.imagem_postagem}}" style="width:50%;margin: 0px 0px 5%;">
+                                        {%endif%}
+                                        <button class="btn btn-primary" onclick="location.href='post_esp+{{post.id}}';" id="button2" style="width: 50%;font-size: 125%;padding: 0px;">Ler mais</button>
+                                        <div class="mx-auto intro-button"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <hr class="linha">
+                        {%endfor%}    
+                        </section>
+                    </div>
+{%endblock conteudo%}
+        <!--
+        <fieldset class="formularioemsi">
+            <div>
+            <dir>
+            <div class="col-sm-10">
+                {{form.nome.label}}
+                {%if form.nome.errors%}
+                    {{form.nome}}
+                    {%for errors in form.nome.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.nome (class="form-control")}}
+                {%endif%}
+                </div>
+            </dir>
+            <dir>
+                <div class="col-sm-10">
+                {{form.email.label}}
+                {%if form.email.errors%}
+                    {{form.email}}
+                    {%for errors in form.email.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.email (class="form-control")}}
+                {%endif%}
+                </div>
+            </dir>
+            <dir>
+                    <div class="input-group">
+                            <div class="input-group-prepend"style="">
+                              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                {{form.foto_nova(type="file",class="custom-file-input",id="inputGroupFile01") }}
+                                {% if form.foto_nova.errors %}
+                                    {%for errors in form.foto_nova.errors%}
+                                        <br>
+                                        <span>{{errors}}</span>
+                                        <br>
+                                    {%endfor%}
+                                {%endif%}
+                              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                              <script>
+                                    $('#inputGroupFile01').on('change',function(){
+                                        var fileName = $(this).val();
+                                        $(this).next('.custom-file-label').html(fileName);
+                                        fileName = fileName.replace("C:\\fakepath\\", "");
+        
+                                        if (fileName != undefined || fileName != "") {
+                                            $(this).next(".custom-file-label").attr('data-content', fileName);
+                                            $(this).next(".custom-file-label").text(fileName);
+                                        }
+                                    })
+                                </script>
+                            </div>
+                          </div>
+            </dir>
+                <dir>
+                <div>
+                    {{form.mandar (class="btn btn-primary")}}
+                    </div>
+                </dir>
+
+        </fieldset>
+</div>
+    </details>
+    </form>
+-->

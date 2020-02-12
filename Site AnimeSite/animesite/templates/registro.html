@@ -1,0 +1,97 @@
+{%extends "base.html"%}
+{%block conteudo%}
+
+<section class="form-gradient" style="display: flex;flex-direction: row;justify-content: center; align-items: center">
+        <div class="card" style="width:50%;">
+        <div class="header pt-3" style="
+        background-color:#666;">
+            <div class="row d-flex justify-content-center">
+                <h3 class="white-text mb-3 pt-3 ">Se Cadastre</h3>
+            </div>
+        </div>
+        <form method="POST" action=""  class="form-padrao">
+        <div class="form-group row" style="display: flex;flex-direction: row;justify-content: center; align-items: center;">
+            <div style="width: 60%;">
+                {{form.hidden_tag()}}
+                    <dir>
+                        <div class="col-sm-10">
+                        {{form.nome.label (class="validationCustom01")}}
+                        {%if form.nome.errors%}
+                            {{form.nome}}
+                            {%for errors in form.nome.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        {{form.nome (class="form-control",size="30",placeholder="Nome do Usuário" )}}
+                        {%endif%}
+                    </div>
+                    </dir>
+                    <dir>
+                        <div class="col-sm-10">
+                        {{form.email.label}}
+                        {%if form.email.errors%}
+                            {{form.email}}
+                            {%for errors in form.email.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        {{form.email (class="form-control",size="30",placeholder="Email" )}}
+                        {%endif%}
+                        </div>
+                    </dir>
+                    <dir>
+                        <div class="col-sm-10">
+                        {{form.senha.label}}
+                        {%if form.senha.errors%}
+                            {{form.senha}}
+                            {%for errors in form.senha.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        <br>
+                        {{form.senha (class="form-control",size="30",placeholder="Senha" )}}
+                        {%endif%}
+                        </div>
+                    </dir>
+                    <dir>
+                        <div class="col-sm-10">
+                        {{form.confirmacao_senha.label}}
+                        {%if form.confirmacao_senha.errors%}
+                            {{form.confirmacao_senha}}
+                            {%for errors in form.confirmacao_senha.errors%}
+                                <br>
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        {%else%}
+                        <br>
+                        {{form.confirmacao_senha (class="form-control",size="30",placeholder="Confirmar Senha" )}}
+                        {%endif%}
+                        </div>
+                    </dir>
+                    <br>
+                    <dir>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                    {{form.mandar_registro(class="btn btn-primary",id="button1")}} 
+                    <br>
+                    <br>
+                    <small style="text-align: center;">
+                                Já possui conta? <a href="{{url_for('login')}}">Clique para logar</a>
+                        </small>
+                </div>
+
+                </dir>
+
+            </form>
+            <br>
+            <br>
+
+        </div>
+    </div>
+</section>
+
+{%endblock conteudo%}

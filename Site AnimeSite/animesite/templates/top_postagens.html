@@ -1,0 +1,81 @@
+{%extends 'base.html'%}
+{%block conteudo%}
+<div class="centered fundo p-5" style="width:80%;">
+{%if not current_user.nome%}
+<div class="card-header border-0 font-weight-bold " style="background-color: #f13340;margin:0px;">
+        <p class="mr-4 mb-0 centered">Faça login para ver mais publicações!</p>
+</div>
+{%endif%}
+<br>
+<div class="container p-0 m-0 centered" style="margin: 0px;margin-right:0px;width:100%;">
+<section style="background-color:rgb(29, 31, 32);">
+    <div class="card-header border-0 font-weight-bold " style="background-color: #f13340;margin:0px;">
+            <img src="static/imagem_home/top.png" width="10%;"style="float:left;">
+            <p class="mr-4 mb-0 centered">Top 5 Postagens</p>
+            <br>
+            <p class="mr-4 mb-0 p-3 centered">{{mensagem}}</p>
+
+    </div>
+    <dir style="padding: 0px;">
+            {%for post in lista%}
+            <container style="font-size: 200%; background-color:#FFC107;">
+            <span class="fa-stack" style="width: 100%;">
+                <!-- The icon that will wrap the number -->
+                <span class="fa fa-circle fa-stack-2x" style="width: 100%;"></span>
+                <strong class="fa-stack-1x" style="width: 100%;color:black;">
+                  {{ loop.index }}
+                </strong>
+                </span>
+                {%if post.media == None%}
+                <div class="container bg-white text-center rounded" width="150%" style="font-size:80%;">Essa colocação não possui média ainda</div>
+                {%else%}
+                <div class="container bg-white text-center rounded" width="150%" style="font-size:80%;">Essa colocação é de média : {{post.media}} estrelas!</div>
+                {%endif%}
+            </container>
+
+                <h1 class="text-center text-white d-none d-lg-block site-heading"></h1>
+                <section class="page-section clearfix">
+                    <div class="container" style="width: 100%;">
+                            <div class="well">
+                        <div class="intro">
+                            <div class="intro-text left-0 text-centerfaded p-5 rounded bg-faded text-center" style="width: 100%;padding: 10%;margin: 0px 0px 0px;">
+                                <div class="d-xl-flex justify-content-xl-start"><img class="rounded-circle" src="{{'static/imagens_perfil/'+post.autor.foto_perfil}}" style="width: 8%;">
+                                    <p class="d-inline d-xl-flex justify-content-xl-center align-items-xl-center" style="margin: 0px 2% 0px;font-size: 120%;">
+                                            <a href="perfil+{{post.usuario_id}}"">{{post.autor.nome}}</a>
+                                    </p>
+                                    <br>
+                                </div>
+            
+                                    <div class="container" style="text-align: center;">
+                                    <p style="text-align:center;font-size: 230%;">
+                                            {%if not current_user.nome%}
+                                            {{post.titulo}}
+                                            {%else%}
+                                            <a href="post_esp+{{post.id}}">{{post.titulo}}</a></p>
+                                            {%endif%}
+                                        </div>
+                                <h2 class="section-heading mb-4"></h2>
+                                <p class="text-center">{{post.conteudo}}</p>
+                                <br>
+                                {%if post.imagem_postagem%}
+                                <img src="{{'static/imagens_postagem/'+ post.imagem_postagem}}" style="width:50%;margin: 0px 0px 5%;">
+                                {%endif%}
+                                {%if current_user.nome%}
+                                <button class="btn btn-primary" onclick="location.href='post_esp+{{post.id}}';" id="button2" style="width: 50%;font-size: 125%;padding: 0px;">Ler mais</button>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="linha">
+
+                
+            </div>
+            {%endfor%}
+
+        </section>
+    </div>
+</div>
+</div>
+</div>
+</div>
+{%endblock conteudo%}

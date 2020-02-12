@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{%block conteudo%}
+<div class="form">
+<section class="form-gradient" style="display: flex;flex-direction: row;justify-content: center; align-items: center">
+        <div class="card" style="width:50%;">
+        <div class="header pt-3" style="
+        background-color:#666; ">
+            <div class="row d-flex justify-content-center">
+                <h3 class="white-text mb-3 pt-3 ">Redefinir Senha</h3>
+            </div>
+        </div>
+    <form method="POST" action="" class="form-padrao">
+            <div class="form-group row" style="display: flex;flex-direction: row;justify-content: center; align-items: center;">
+        {{form.hidden_tag()}}
+        <fieldset class="formularioemsi">
+            <br>
+            <br>
+            <dir style="padding: 0%;">
+            <div class="col-sm-30">
+                {{form.email.label}}
+                {%if form.email.errors%}
+                    {{form.email}}
+                    {%for errors in form.email.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.email (class="form-control",placeholder="Email" ,size="30")}}
+                {%endif%}
+                </div>
+            <br>
+            <br>
+            {{form.mandar_email_reset(class="btn btn-primary",id="button2",style="width:100%;")}}
+        </fieldset>
+    </dir>
+
+    </div>
+    </form>
+</div>
+</div>
+</div>
+</section>
+{%endblock conteudo%}

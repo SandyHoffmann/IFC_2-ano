@@ -1,0 +1,122 @@
+{%extends "base.html"%}
+{%block conteudo%}
+
+<form method="POST" action="" enctype="multipart/form-data" class=" text p-5 centered" style="width:80%;">
+{{estrela_form.hidden_tag()}}
+        <dir style="padding: 0%;">
+            <h1 class="text-center text-white d-none d-lg-block site-heading"></h1>
+            <section class="page-section clearfix">
+                <div class="container" style="width: 100%;">
+                        <div class="well">
+                    <div class="intro">
+                        <div class="intro-text left-0 text-centerfaded p-5 rounded bg-faded text-center" style="width: 100%;padding: 10%;margin: 0px 0px 0px;">
+                            <div class="d-xl-flex justify-content-xl-start"><img class="rounded-circle" src="{{'static/imagens_perfil/'+post.autor.foto_perfil}}" style="width: 8%;">
+                                <p class="d-inline d-xl-flex justify-content-xl-center align-items-xl-center" style="margin: 0px 2% 0px;font-size: 120%;"><a href="perfil+{{post.usuario_id}}">{{post.autor.nome}}</a></p>
+                                <br>
+                            </div>
+        
+                                <div class="container" style="text-align: center;">
+                                <p style="text-align:center;font-size: 230%;"><a href="post_esp+{{post.id}}">{{post.titulo}}</a></p>
+                            </div>
+                            <h2 class="section-heading mb-4"></h2>
+                            <p class="text-center">{{post.conteudo}}</p>
+                            <br>
+                            {%if post.imagem_postagem%}
+                            <img src="{{'static/imagens_postagem/'+ post.imagem_postagem}}" style="width:80%;margin: 0px 0px 5%;">
+                            {%endif%}
+                    <div class="container">
+                    <div class="estrelas">
+                        <div class="container">
+                            {{estrela_form.estrela(class="star-field",required="required")}}
+                            {%if estrela_form.errors%}
+                            {{estrela_form.estrela}}
+                                {%for errors in estrela_form.estrela.errors%}
+                                    <br>
+                                    <span>{{errors}}</span>
+                                {%endfor%}
+                            {%endif%}
+                            {{estrela_form.mandar_avaliacao(id="button2",class="btn btn-primary",style="position:relative;")}}
+                            </div>
+                            <br>
+                            {%if post.media == None%}
+                            <br>
+                            <p>Esse post ainda não foi avaliado! </p>
+                            {%else%}
+                            <br>
+                            <p>A média avaliativa desse post é de {{post.media}} estrelas! </p>
+                        {%endif%}
+                        </div>
+                        <br>
+                        {%if current_user.nome == post.autor.nome or current_user.administrador == true%}
+                        %}
+
+                <div class="container" style="width: 100%;">
+                        <a class="btn btn-warning btn-xs" id="button_aviso" href="post_esp_edicao+{{post.id}}">Editar</a>
+                        <a class="btn btn-danger btn-xs"  id="button_perigo" href="excluir_post+{{post.id}}">Excluir</a>
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+            </div>
+            <p>Por {{post.autor.nome}} em {{post.data_postada.strftime('%d-%m-%Y')}}</p>
+            <br>
+            </dir>
+
+        </section>
+</form>
+<form method="POST" action="" enctype="multipart/form-data" class=" text p-5 centered" style="width:80%;">
+    <section class="my-5">
+            <div class="container p-0" style="width: 100%;">
+            <div class="card-header border-0 font-weight direct-chat-text m-0 p-4">Comente algo {{current_user.nome}}</div>
+            <div class="d-md-flex flex-md-fill mt-4 px-1 p-5">
+              <div class="d-flex justify-content-center mr-md-5">
+                <img class="card-img-100 z-depth-1 mb-4 rounded" src="{{'static/imagens_perfil/'+current_user.foto_perfil}}"
+                  alt="avatar">
+              </div>
+              {{coment.hidden_tag()}}
+              {%if coment.comentarios.errors%}
+                    {{coment.comentarios ( class="form-control pl-3 pt-3",id="exampleFormControlTextarea1",rows="5",placeholder="Escreva algo...")}}
+                    {%for errors in coment.comentarios.errors%}
+                        <br>
+                        <div class="card-header border-0 font-weight-bold d-flex justify-content-between" style="background-color: #FFC107;margin:0px;">
+                        <div class="container p-0" style="background-color:#FFC107">
+                            <img src="static/imagem_home/perigo2.png" style="width:5em;height:5em;">
+                        <p style="color:white;position:relative;">{{errors}}</p>
+                    </div>    
+                    </div>
+                    {%endfor%}
+                {%else%}
+                    {{coment.comentarios( class="form-control pl-3 pt-3",id="exampleFormControlTextarea1",rows="5",placeholder="Escreva algo...")}}
+                {%endif%}
+            </div>
+            <div class="text-center mt-4">
+            {{coment.mandar_comentario(class="btn btn-primary",id="button2")}}
+            </div>
+            <br>
+    
+                    <div class="card-header border-0 font-weight-bold d-flex justify-content-between" style="background-color: #f13340;margin:0px;">
+                      <p class="mr-4 mb-0 centered">Comentários</p>
+                      <ul class="list-unstyled list-inline mb-0">
+                        <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-user mr-1"></i>See profile</a></li>
+                      </ul>
+                    </div>
+                    {% for comentario in post.comentario %}
+                    <div class="media mt-4 px-1 p-4">
+                      <img class="card-img-100 d-flex z-depth-1 mr-3 rounded" src="{{'static/imagens_perfil/'+comentario.autor.foto_perfil}}"
+                        alt="perfil" width="15%;">
+                      <div class="media-body">
+                        <h5 class="font-weight-bold mt-0">
+                          <a href="">{{comentario.autor.nome}}</a>
+                        </h5>
+                        <div class="direct-chat-text m-0">
+                               {{comentario.conteudo_comentario}}
+                                <span class="direct-chat-timestamp pull-right">3.36 PM</span>
+                              </div>
+                        </div>
+                    </div>
+                        {% endfor %}    
+    
+                    </div>
+                  </section>
+    </form>
+{%endblock%}

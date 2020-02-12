@@ -1,0 +1,126 @@
+{%extends "base.html"%}
+{%block conteudo%}
+    <form method="POST" action="" enctype="multipart/form-data" class=" text p-5 centered" style="width:80%;">
+        <div>
+        {{form.hidden_tag()}}
+        <dir style="padding: 0px;">
+                <section class="page-section clearfix">
+                        <div class="container p-2" style="width: 100%;">
+                                <div class="well">
+                            <div class="intro">
+
+        <dir style="padding:0px;">
+                    <div class="well">
+                        <div class="container">
+                <h3 style="text-align: center">Postar</h3>
+                <br>
+                {{form.titulo.label}}
+                {%if form.titulo.errors%}
+                {{form.titulo (type="text", id="defaultSubscriptionFormPassword", class="form-control mb-4", placeholder="Título")}}
+                    {%for errors in form.titulo.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.titulo (type="text", id="defaultSubscriptionFormPassword", class="form-control mb-4", placeholder="Título")}}
+                {%endif%}
+                <div class="form-group green-border-focus">
+                {{form.conteudo.label}}
+                {%if form.conteudo.errors%}
+                {{form.conteudo (type="text",class="form-control", id="exampleFormControlTextarea5",  placeholder="Conteudo",style="padding-left:5%;")}}
+                    {%for errors in form.conteudo.errors%}
+                        <br>
+                        <span>{{errors}}</span>
+                    {%endfor%}
+                {%else%}
+                {{form.conteudo (type="text",class="form-control", id="exampleFormControlTextarea5",  placeholder="Conteudo",style="padding-left:5%;")}}
+                {%endif%}
+                <br>
+            </div>
+            
+                <div class="input-group" style="padding: 0px;">
+                    <div class="custom-file">
+                        {{form.imagem_postagem(type="file",class="custom-file-input",id="inputGroupFile01") }}
+                        {% if form.imagem_postagem.errors %}
+                        {{form.imagem_postagem(type="file",class="custom-file-input",id="inputGroupFile01") }}
+                            {%for errors in form.imagem_postagem.errors%}
+                                <br>
+                                
+                                <p class="text-center d-xl-flex justify-content-xl-center align-items-xl-center"style="margin-top:20%;width:100%;position:relative;">{{errors}}</p>
+                                <br>
+                                <br>
+                            {%endfor%}
+                        {%endif%}
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      <script>
+                            $('#inputGroupFile01').on('change',function(){
+                                var fileName = $(this).val();
+                                $(this).next('.custom-file-label').html(fileName);
+                                fileName = fileName.replace("C:\\fakepath\\", "");
+
+                                if (fileName != undefined || fileName != "") {
+                                    $(this).next(".custom-file-label").attr('data-content', fileName);
+                                    $(this).next(".custom-file-label").text(fileName);
+                                }
+                            })
+                        </script>
+                    </div>
+                  </div>
+                   <br>
+                   <br>
+                   <br>
+                {{form.mandar_postagem(class="btn btn-info btn-block",id="button2")}}
+                <br>
+                <br>
+
+        </div>
+    </div>
+</div>
+</div>
+    </dir>
+</dir>
+<section style="background-color:rgb(29, 31, 32);">
+<div class="card-header border-0 font-weight-bold d-flex justify-content-between" style="background-color: #f13340;margin:0px;">
+        <p class="mr-4 mb-0 centered">Postagens Recentes</p>
+</div>
+        {%for post in posts|reverse%}
+        <dir style="padding: 0px;">
+            <h1 class="text-center text-white d-none d-lg-block site-heading"></h1>
+            <section class="page-section clearfix">
+                <div class="container" style="width: 100%;">
+                        <div class="well">
+                    <div class="intro">
+                        <div class="intro-text left-0 text-centerfaded p-5 rounded bg-faded text-center" style="width: 100%;padding: 10%;margin: 0px 0px 0px;">
+                            <div class="d-xl-flex justify-content-xl-start"><img class="rounded-circle" src="{{'static/imagens_perfil/'+post.autor.foto_perfil}}" style="width: 8%;">
+                                <p class="d-inline d-xl-flex justify-content-xl-center align-items-xl-center" style="margin: 0px 2% 0px;font-size: 120%;"><a href="perfil+{{post.usuario_id}}">{{post.autor.nome}}</a></p>
+                                <br>
+                            </div>
+        
+                                <div class="container" style="text-align: center;">
+                                <p style="text-align:center;font-size: 230%;"><a href="post_esp+{{post.id}}">{{post.titulo}}</a></p>
+                            </div>
+                            <h2 class="section-heading mb-4"></h2>
+                            <p class="text-center">{{post.conteudo}}</p>
+                            <br>
+                            {%if post.imagem_postagem%}
+                            <img src="{{'static/imagens_postagem/'+ post.imagem_postagem}}" style="width:50%;margin: 0px 0px 5%;">
+                            {%endif%}
+                            <button class="btn btn-primary" onclick="location.href='post_esp+{{post.id}}';" id="button2" style="width: 50%;font-size: 125%;padding: 0px;">Ler mais</button>
+                            <div class="mx-auto intro-button"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+            </section>
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/js/current-day.js"></script>
+</dir>
+</section>
+{%endfor%}
+
+</form>
+
+
+{%endblock conteudo%}
