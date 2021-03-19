@@ -51,22 +51,18 @@ Este projeto está sob a licença de Código Aberto.
 ## 🚀 Sobre o Site
 
 Esse site foi feito com o intuito de ser um site estilo rede social, onde o usuario tera que fazer login para poder postar, dar nota, editar e excluir postagens.
-
 ![image](https://user-images.githubusercontent.com/60969091/111730702-ba57a780-8850-11eb-8624-8e8137475797.png)
 <i>Foto da pagina inicial</i>
 
-Página onde ficam as postagens que pessoas sem cadastro podem ver
-
+Página onde ficam as postagens que pessoas sem cadastro podem ver.
 ![image](https://user-images.githubusercontent.com/60969091/111730841-fbe85280-8850-11eb-8c63-8b738060ebc7.png)
 <i>Foto da pagina de postagens</i>
 
-Temos uma guia para fazer o registro de usuarios na página com autenticação.
-
+Temos uma guia para fazer o registro de usuarios na página.
 ![image](https://user-images.githubusercontent.com/60969091/111730986-4964bf80-8851-11eb-9e36-4e6f08f2e44c.png)
 <i>Foto da pagina de registro</i>
 
-Apos logado o usuário pode fazer as suas proprias postagens
-
+Apos logado o usuário pode fazer as suas proprias postagens.
 ![image](https://user-images.githubusercontent.com/60969091/111731260-d6a81400-8851-11eb-8337-6857dd4c686a.png)
 <i>Cadastro de postagens</i>
 
