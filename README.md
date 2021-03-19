@@ -11,9 +11,11 @@ Este trabalho teve o intuito de fazer um jogo em python usando a biblioteca pyth
 
 O jogo possui modo player 1, modo 2 players, sistema de ajuda de controles e tambem um sistema de power ups.
 ![image](https://user-images.githubusercontent.com/60969091/111729962-0d305f80-884f-11eb-8ae3-164d14360aa4.png)
+
 <i>Foto do menu do game</i>
 
 ![image](https://user-images.githubusercontent.com/60969091/111730033-3fda5800-884f-11eb-8de5-869d0f307b42.png)
+
 <i>Foto do jogo execução</i>
 
 ### 📋 Como Executar o Programa
